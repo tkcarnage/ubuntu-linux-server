@@ -85,23 +85,23 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
         1. Create Virtual Host File
                 1. `sudo nano /etc/apache2/sites-available/catalogapp.conf`
                 1. Copy this
-                 ```<VirtualHost *:80>
-                        ServerName 34.210.73.97
+                 ```<VirtualHost *:80>```
+                        ```ServerName 34.210.73.97
                         ServerAdmin Email
                         WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
-                        <Directory /var/www/FlaskApp/ItemCataApp>
-                                Order allow,deny
-                                Allow from all
-                        </Directory>
+                        <Directory /var/www/FlaskApp/ItemCataApp>```
+                                ```Order allow,deny
+                                Allow from all```
+                        ```</Directory>
                         Alias /static /var/www/FlaskApp/ItemCataApp/static
-                        <Directory /var/www/FlaskApp/ItemCataApp/static>
-                                Order allow,deny
-                                Allow from all
-                        </Directory>
+                        <Directory /var/www/FlaskApp/ItemCataApp/static>```
+                                ```Order allow,deny
+                                Allow from all```
+                        ```</Directory>
                         Errorlog ${APACHE_LOG_DIR}/error.log
                         LogLevel warn
-                        CustomLog ${APACHE_LOG_DIR}/access.log combined
-                 </VirtualHost>```
+                        CustomLog ${APACHE_LOG_DIR}/access.log combined```
+                 ```</VirtualHost>```
         1. Run `sudo a2ensite catalogapp`
         1. Run `sudo service apache2 restart`
 
