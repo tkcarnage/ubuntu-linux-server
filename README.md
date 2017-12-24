@@ -84,7 +84,7 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
             application.secret_key = 'Add your secret key' ```
         1. Create Virtual Host File
                 1. `sudo nano /etc/apache2/sites-available/catalogapp.conf`
-                1. Copy this
+                Copy this
                 
                 
                  <VirtualHost *:80>
