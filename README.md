@@ -8,11 +8,11 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
 1. Create Lightsail instance. [Lightsail](https://lightsail.aws.amazon.com/ls/webapp)
 1. Connect to the instance using the Lightsail website, it should be a orange button saying "Connect using SSH"
 1. Update the server running these two commands
-  1. `sudo apt-get update`
-  1. `sudo apt-get upgrade`
+    1. `sudo apt-get update`
+    1. `sudo apt-get upgrade`
 1. Create new user, grader, with sudo permissions
-  1. `sudo adduser grader`
-  1. `sudo usermod -aG sudo grader`
+    1. `sudo adduser grader`
+    1. `sudo usermod -aG sudo grader`
 1. Login from your own terminal
   1. Generate ssh key pair
     1. Run `ssh-keygen` command on your own machine and save it
