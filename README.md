@@ -85,6 +85,7 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
         1. Create Virtual Host File
                 1. `sudo nano /etc/apache2/sites-available/catalogapp.conf`
                 1. Copy this
+                
                 <pre>
                  <VirtualHost *:80>
                         ServerName 34.210.73.97
