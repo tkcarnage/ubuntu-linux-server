@@ -74,34 +74,34 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
         1. Create database schema `sudo python3 database_setup.py`
         1. Create mock database `sudo python3 mockdb.py`
         1. Create flaskapp.wsgi file in FlaskApp dir copy this
-            #!/usr/bin/python
-            import sys
-            import logging
-            logging.basicConfig(stream=sys.stderr)
-            sys.path.insert(0,"/var/www/FlaskApp/")
+           > #!/usr/bin/python
+           > import sys
+           > import logging
+           > logging.basicConfig(stream=sys.stderr)
+           > sys.path.insert(0,"/var/www/FlaskApp/")
 
-            from ItemCataApp import app as application
-            application.secret_key = 'Add your secret key'
+           > from ItemCataApp import app as application
+           > application.secret_key = 'Add your secret key'
         1. Create Virtual Host File
                 1. `sudo nano /etc/apache2/sites-available/catalogapp.conf`
                 1. Copy this
-                <VirtualHost *:80>
-                        ServerName 34.210.73.97
-                        ServerAdmin Email
-                        WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
-                        <Directory /var/www/FlaskApp/ItemCataApp>
-                                Order allow,deny
-                                Allow from all
-                        </Directory>
-                        Alias /static /var/www/FlaskApp/ItemCataApp/static
-                        <Directory /var/www/FlaskApp/ItemCataApp/static>
-                                Order allow,deny
-                                Allow from all
-                        </Directory>
-                        Errorlog ${APACHE_LOG_DIR}/error.log
-                        LogLevel warn
-                        CustomLog ${APACHE_LOG_DIR}/access.log combined
-                </VirtualHost>
+                > <VirtualHost *:80>
+                >        ServerName 34.210.73.97
+                >        ServerAdmin Email
+                >        WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
+                >        <Directory /var/www/FlaskApp/ItemCataApp>
+                >                Order allow,deny
+                >                Allow from all
+                >        </Directory>
+                >        Alias /static /var/www/FlaskApp/ItemCataApp/static
+                >        <Directory /var/www/FlaskApp/ItemCataApp/static>
+                >                Order allow,deny
+                >                Allow from all
+                >        </Directory>
+                >        Errorlog ${APACHE_LOG_DIR}/error.log
+                >        LogLevel warn
+                >        CustomLog ${APACHE_LOG_DIR}/access.log combined
+                > </VirtualHost>
         1. Run `sudo a2ensite catalogapp`
         1. Run `sudo service apache2 restart`
 
