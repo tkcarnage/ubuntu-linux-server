@@ -6,9 +6,11 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
 
 ssh into using port 2200
 
-user: grader pw: 'password'
+user: grader 
+pw: 'password'
 
-user: catalog pw: 'password'
+user: catalog 
+pw: 'password'
 
 ## Step by Step Directions
 1. Create Lightsail instance. [Lightsail](https://lightsail.aws.amazon.com/ls/webapp)
