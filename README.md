@@ -3,8 +3,11 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
 
 ### See it working
 [34.210.73.97](http://34.210.73.97/)
+
 ssh into using port 2200
+
 user: grader pw: 'password'
+
 user: catalog pw: 'password'
 
 ## Step by Step Directions
