@@ -86,7 +86,7 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
                 1. `sudo nano /etc/apache2/sites-available/catalogapp.conf`
                 1. Copy this
                 
-                <pre>
+                
                  <VirtualHost *:80>
                         ServerName 34.210.73.97
                         ServerAdmin Email
@@ -104,7 +104,7 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
                         LogLevel warn
                         CustomLog ${APACHE_LOG_DIR}/access.log combined
                  </VirtualHost>
-                 </pre>
+                 
         1. Run `sudo a2ensite catalogapp`
         1. Run `sudo service apache2 restart`
 
