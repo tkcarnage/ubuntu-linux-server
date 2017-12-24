@@ -46,9 +46,68 @@ Directions on how to run Lightsail ubuntu server to serve ItemCataApp web applic
         1. `sudo nano /etc/ssh/sshd_config` PermitRootLogin no
 1. Configure local timezone to UTC
     1. `sudo dpkg-reconfigure tzdata` use GUI to set it to UTC
-1. Install Apache and Git
+1. Create database and database user: catalog
+    1. Install PostgreSQL `sudo apt-get install postgresql`
+    1. Disable remote connections `sudo nano /etc/postgresql/9.5/main/pg_hba.conf`
+    1. Login to postgres `su - postgres`
+    1. Create user catalog and database catalog
+        1. `psql`
+        1. `CREATE USER catalog WITH PASSWORD 'password';`
+        1. `CREATE DATABASE catalog WITH OWNER catalog;`
+        1. Give limited permissions to catalog user `ALTER USER catalog CREATEDB;`
+1. Install Apache, dependencies, and Git
     1. Install Apache using `sudo apt-get install apache2`
     1. Install mod_wsgi `sudo apt-get install libapache2-mod-wsgi-py3`
     1. Install git `sudo apt-get install git`
+    1. Install pip `sudo apt-get install python-pip`
+    1. Install dependencies `sudo pip install sqlalchemy psycopg2 bleach requests flask packaging oauth2client python-psycopg2`
+
 1. Serve the Web application
-    1. 
+    1. clone the application
+        1. `cd /var/www`
+        1. `sudo mkdir FlaskApp`
+        1. `cd FlaskApp`
+        1. `sudo git clone https://github.com/tkcarnage/ItemCataApp.git`
+        1. Rename the project.py in ItemCataApp into __init__.py `mv project.py __init__.py`
+        1. Change oauth CLIENT_ID and oauth_flow in __init__.py with new file path '/var/www/FlaskApp/ItemCataApp/client_secrets.json'
+        1. Change all create_engine('sqlite:///hearthstonecard.db') code line in __init__.py and database_setup.py and mockdb.py with create_engine('postgresql://catalog:password@localhost/catalog')
+        1. Create database schema `sudo python3 database_setup.py`
+        1. Create mock database `sudo python3 mockdb.py`
+        1. Create flaskapp.wsgi file in FlaskApp dir copy this
+            #!/usr/bin/python
+            import sys
+            import logging
+            logging.basicConfig(stream=sys.stderr)
+            sys.path.insert(0,"/var/www/FlaskApp/")
+
+            from ItemCataApp import app as application
+            application.secret_key = 'Add your secret key'
+        1. Create Virtual Host File
+                1. `sudo nano /etc/apache2/sites-available/catalogapp.conf`
+                1. Copy this
+                <VirtualHost *:80>
+                        ServerName 34.210.73.97
+                        ServerAdmin Email
+                        WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
+                        <Directory /var/www/FlaskApp/ItemCataApp>
+                                Order allow,deny
+                                Allow from all
+                        </Directory>
+                        Alias /static /var/www/FlaskApp/ItemCataApp/static
+                        <Directory /var/www/FlaskApp/ItemCataApp/static>
+                                Order allow,deny
+                                Allow from all
+                        </Directory>
+                        Errorlog ${APACHE_LOG_DIR}/error.log
+                        LogLevel warn
+                        CustomLog ${APACHE_LOG_DIR}/access.log combined
+                </VirtualHost>
+        1. Run `sudo a2ensite catalogapp`
+        1. Run `sudo service apache2 restart`
+
+## References
+(https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+(http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/#working-with-virtual-environments)
+(https://askubuntu.com/questions/138423/how-do-i-change-my-timezone-to-utc-gmt)
+(https://help.ubuntu.com/community/UFW)
+
